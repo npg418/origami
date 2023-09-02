@@ -11,9 +11,13 @@
     "format": "prettier --write . !yarn.lock"
   },
   "devDependencies": {
+    "@types/three": "^0.155.1",
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "three": "^0.156.0"
   }
 }
