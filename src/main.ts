@@ -6,17 +6,23 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xefefef);
 
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
 camera.position.set(0, 0, 200);
 
-const geometry = new THREE.BoxGeometry(50, 50, 0.001);
-const material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
-const crane = new THREE.Mesh(geometry, material);
+const geometry = new THREE.PlaneGeometry(50, 50);
+const front = new THREE.MeshLambertMaterial({ color: 0xff0000, side: THREE.FrontSide });
+const back = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
+geometry.faces[0].materialIndex = 0;
+geometry.faces[1].materialIndex = 0;
+const crane = new THREE.Mesh(geometry, [front, back]);
+crane.position.set(0, 0, 0);
+crane.rotateX(15);
 crane.rotateZ(-15);
 scene.add(crane);
 
-const light = new THREE.DirectionalLight(0xffffff);
+const light = new THREE.DirectionalLight();
 scene.add(light);
 
 function animate() {
