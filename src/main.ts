@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import Paper from './paper';
 
 import './style.css';
 
@@ -12,24 +13,16 @@ scene.background = new THREE.Color(0xefefef);
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.set(0, 0, 300);
 
-const group = new THREE.Group();
-
-const geometry = new THREE.PlaneGeometry(100, 100);
-const material = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-const mesh = new THREE.Mesh(geometry, material);
-group.add(mesh);
-
-const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
-const line = new THREE.Mesh(geometry, wireMaterial);
-group.add(line);
+const group = new Paper(100, 0xff0000, 0x00ff00);
 
 scene.add(group);
 
-const light = new THREE.DirectionalLight(0xffffff);
+const light = new THREE.DirectionalLight();
 light.position.set(100, 100, 100);
+light.lookAt(scene.position);
 scene.add(light);
 
-const ambient = new THREE.AmbientLight(0xfcfcfc);
+const ambient = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambient);
 
 const controls = new OrbitControls(camera, renderer.domElement);
