@@ -2,7 +2,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ['feature/blender-animation']
+    branches: ['master']
 
   workflow_dispatch:
 
