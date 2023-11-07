@@ -15,7 +15,7 @@ camera.position.set(0, 0, 300);
 
 const gltfLoader = new GLTFLoader();
 let mixer: THREE.AnimationMixer;
-gltfLoader.load('/static/car/01.glb', (gltf) => {
+gltfLoader.load('/public/car/01.glb', (gltf) => {
   scene.add(gltf.scene);
   mixer = new THREE.AnimationMixer(gltf.scene);
   gltf.animations.forEach((animation) => {
