@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import './style.css';
 
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -44,7 +45,6 @@ Array(8)
       let duration = 0;
       gltf.animations.forEach((animation) => {
         const action = mixer.clipAction(animation);
-        action.setLoop(THREE.LoopOnce, 1);
         action.clampWhenFinished = true;
         action.play();
         duration = Math.max(duration, animation.duration);
@@ -91,21 +91,28 @@ const time = document.getElementById('time')!;
 // };
 time.addEventListener('input', ({ target }) => {
   if (!(target instanceof HTMLInputElement)) return;
-  steps[current].mixer.setTime(Number(target.value) / 100);
+  clock.stop()
+  steps[current].mixer.setTime(Number(target.value) * steps[current].duration / 100);
+});
+time.addEventListener('change', ({ target }) => {
+  if (!(target instanceof HTMLInputElement)) return;
+  clock.start()
 });
 
 const clock = new THREE.Clock();
+clock.running = true;
 function animate() {
   requestAnimationFrame(animate);
 
   controls.update();
-
-  const step = steps[current];
-  if (step) {
-    if (time instanceof HTMLInputElement) {
-      const rate = (step.mixer.time / step.duration) * 100;
-      time.value = String(rate);
-      if (rate <= 100) step.mixer.update(clock.getDelta());
+  if (clock.running) {
+    const step = steps[current];
+    if (step) {
+      if (time instanceof HTMLInputElement) {
+        const rate = (step.mixer.time / step.duration) * 100;
+        time.value = String(rate);
+        if (rate <= 100) step.mixer.update(clock.getDelta());
+      }
     }
   }
 
