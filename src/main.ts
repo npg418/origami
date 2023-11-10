@@ -4,7 +4,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import './style.css';
 
-
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -49,7 +48,7 @@ Array(8)
         action.play();
         duration = Math.max(duration, animation.duration);
       });
-      steps.push({ obj, mixer, duration });
+      steps[i] = { obj, mixer, duration };
       if (i === current) {
         scene.add(steps[current].obj);
       }
@@ -91,12 +90,12 @@ const time = document.getElementById('time')!;
 // };
 time.addEventListener('input', ({ target }) => {
   if (!(target instanceof HTMLInputElement)) return;
-  clock.stop()
-  steps[current].mixer.setTime(Number(target.value) * steps[current].duration / 100);
+  clock.stop();
+  steps[current].mixer.setTime((Number(target.value) * steps[current].duration) / 100);
 });
 time.addEventListener('change', ({ target }) => {
   if (!(target instanceof HTMLInputElement)) return;
-  clock.start()
+  clock.start();
 });
 
 const clock = new THREE.Clock();
