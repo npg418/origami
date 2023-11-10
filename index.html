@@ -12,7 +12,11 @@
     <h1 class="title">Origami</h1>
     <p>自分だけの折り紙を見つけよう</p>
   </section> -->
-      <div id="viewer"></div>
+      <div id="viewer">
+        <button id="prev" disabled>&lt;</button>
+        <input type="range" id="time" value="0" min="0" max="100" />
+        <button id="next">&gt;</button>
+      </div>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
