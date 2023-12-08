@@ -72,6 +72,7 @@ prevButton.addEventListener('click', () => {
   scene.remove(steps[current].obj);
   current = Math.max(0, current - 1);
   updateButtons();
+  steps[current].mixer.setTime(0);
   scene.add(steps[current].obj);
 });
 const nextButton = document.getElementById('next')!;
@@ -80,6 +81,7 @@ nextButton.addEventListener('click', () => {
   const max = steps.length - 1;
   current = Math.min(max, current + 1);
   updateButtons();
+  steps[current].mixer.setTime(0);
   scene.add(steps[current].obj);
 });
 
@@ -110,7 +112,7 @@ function animate() {
       if (time instanceof HTMLInputElement) {
         const rate = (step.mixer.time / step.duration) * 100;
         time.value = String(rate);
-        if (rate <= 100) step.mixer.update(clock.getDelta());
+        if (rate < 100) step.mixer.update(clock.getDelta());
       }
     }
   }
