@@ -44,7 +44,7 @@ Array(8)
       let duration = 0;
       gltf.animations.forEach((animation) => {
         const action = mixer.clipAction(animation);
-        action.clampWhenFinished = true;
+        action.clampWhenFinished = false;
         action.play();
         duration = Math.max(duration, animation.duration);
       });
@@ -110,9 +110,9 @@ function animate() {
     const step = steps[current];
     if (step) {
       if (time instanceof HTMLInputElement) {
-        const rate = (step.mixer.time / step.duration) * 100;
+        step.mixer.setTime(Math.min(step.duration-0.001,step.mixer.time+clock.getDelta()))
+        const rate = Math.min(100,(step.mixer.time / step.duration) * 100);
         time.value = String(rate);
-        if (rate < 100) step.mixer.update(clock.getDelta());
       }
     }
   }
