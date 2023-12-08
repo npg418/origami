@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "yarn@1.22.19",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -12,7 +13,9 @@
   },
   "devDependencies": {
     "@types/three": "^0.155.1",
+    "@typescript-eslint/parser": "^6.13.2",
     "eslint": "^8.48.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.0.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
